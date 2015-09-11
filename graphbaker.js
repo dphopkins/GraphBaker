@@ -117,22 +117,22 @@ function send() {
                     // setTitle(title);
                     break;
                 case "nameSlice()":
-                    var sliceName = parameters.split(": ")[1];                   
-                    window.initData.push({"label": sliceName, "value": 0}); // add the new section with 0 are
+                    var sliceName = parameters.split(": ")[1];
+                    window.name = sliceName;
+                    window.initData.push({"label": sliceName, "value": 0}); // add the new section with 0 area
                     break;
                 case "sizeSlice()":
-                    var sliceSize = parameters.split(": ")[1];
+                    var sliceSize = parseInt(parameters.split(": ")[1]);
                     window.total += sliceSize;
 
                     if (window.total > 100) {
                         alert("Too much pie!");
-                        // no recovery atm
-                        // just max out the last one
+                        // TODO: no recovery atm, just max out the last one?
 
                     } else if (window.total == 100) {
-                        var oldData = window.initData.pop(); // the now-useless entry in initData (label: sliceName, value: 0)
-                        window.initData[0]["label"] = sliceName; // might not be in scope
-                        window.initData[0]["value"] = sliceSize;
+                        window.initData.pop(); // the now-useless entry in initData (label: sliceName, value: 0)
+                        var sliceName = window.name;
+                        window.initData[0]["label"] = sliceName;
 
                         eatPie();
                         makePie(window.initData);
@@ -169,8 +169,8 @@ function setFulfillment(val) {
 
 // THE BAKERY
 
-// data = [{"label":"one", "value":20}, 
-//         {"label":"two", "value":50}, 
+// data = [{"label":"one", "value":20},
+//         {"label":"two", "value":50},
 //         {"label":"three", "value":30}];
 
 function makePie(data) {
@@ -194,7 +194,7 @@ function makePie(data) {
         .value(function(d) { return d.value; });    //we must tell it out to access the value of each element in our data array
 
     var arcs = vis.selectAll("g.slice")     //this selects all <g> elements with class slice (there aren't any yet)
-        .data(pie)                          //associate the generated pie data (an array of arcs, each having startAngle, endAngle and value properties) 
+        .data(pie)                          //associate the generated pie data (an array of arcs, each having startAngle, endAngle and value properties)
         .enter()                            //this will create <g> elements for every "extra" data element that should be associated with a selection. The result is creating a <g> for every object in the data array
             .append("svg:g")                //create a group to hold each slice (we will have a <path> and a <text> element associated with each slice)
                 .attr("class", "slice");    //allow us to style things in the slices (like text)
