@@ -1,2 +1,2 @@
 # GraphBaker
-Use voice commands to make simple charts and graphs
+GraphBaker is a web application that allows a user to use voice commands to create simple charts and graphs. The voice commands and much of the machine learning aspect of the project is handled by api.ai, while the actual visualization is handled by the D3.js library. GraphBaker was started at PennApps XII (Fall 2015), but I was unable to put in the time needed due to other commitments. I am hoping to finish it up at some point soon, and am actively working on improving it.
